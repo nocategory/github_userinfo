@@ -1,0 +1,10 @@
+<%= form_with scope: :user, local: true do |form| %>
+  <p>
+    <%= form.label :username %><br>
+    <%= form.text_field :username %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
