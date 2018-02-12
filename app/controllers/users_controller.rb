@@ -22,4 +22,9 @@ class UsersController < ApplicationController
 
         redirect_to '/users/' << @user.login
     end
+
+    def show
+        # params[:id] is actually the login name
+        @user = User.find_by_login(params[:id]) or render file: "#{Rails.root}/public/404", status: 404
+    end
 end
