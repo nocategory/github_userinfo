@@ -2,6 +2,12 @@ require 'rest-client'
 
 class UsersController < ApplicationController
     def create
+        username = params[:user][:username] 
+        if User.exists?(:login => username)
+            redirect_to '/users/' << username
+            return
+        end
+        
         ## Build GitHub API url & auth header
         url = "https://api.github.com/users/" << username
         header = ENV["GH"] ? {:Authorization => 'token ' << ENV["GH"]} : {}
