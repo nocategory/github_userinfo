@@ -2,7 +2,7 @@ require 'rest-client'
 
 class UsersController < ApplicationController
     def create
-        username = params[:user][:username] 
+        username = params[:user][:username]
         if User.exists?(:login => username)
             redirect_to '/users/' << username
             return
@@ -13,7 +13,13 @@ class UsersController < ApplicationController
         header = ENV["GH"] ? {:Authorization => 'token ' << ENV["GH"]} : {}
 
         ## Send the request and parse the response
-        response = RestClient.get url, header
+        ## If there is a bad response from the API, return the 404 page
+        begin
+            response = RestClient.get url, header
+        rescue RestClient::ExceptionWithResponse => err
+            render file: "#{Rails.root}/public/404", status: 404
+            return err.response
+        end
         data = JSON.parse(response.body, symbolize_keys: true)
 
         ## Create a new @user and save it
