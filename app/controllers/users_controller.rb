@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
         @user = User.new(:login => username)
         @user.save
-
+        
         QueryapiJob.new.perform(@user)
         redirect_to '/users/' << @user.login
     end

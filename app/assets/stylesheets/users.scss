@@ -4,7 +4,7 @@
 
 body {
     background-color: #F5F5F5;
-    font-family: Arial;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 .container {
@@ -15,7 +15,7 @@ body {
 }
 
 .username_form {
-    padding: 2em;
+    padding: 2.5rem;
     border-radius: 2px;
     box-shadow: 1px -1px 10px 0px #656565b3;
     margin: 0 auto;
@@ -52,4 +52,8 @@ body {
 img {
     width: 256px;
     margin: 0 auto;
+}
+
+.username_image {
+    text-align: center;
 }

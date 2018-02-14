@@ -20,7 +20,6 @@ class QueryapiJob
         return err.response
     end
     data = JSON.parse(response.body, symbolize_keys: true)
-
     ## Create a new @user and save it
     user.update(:name => data['name'], :avatar_url => data['avatar_url'], :followers => data['followers'], :public_repos => data['public_repos'], :repos_url => data['repos_url'])
   end
