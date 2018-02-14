@@ -1,10 +1,14 @@
-<%= form_with scope: :user, local: true do |form| %>
-  <p>
-    <%= form.label :username %><br>
-    <%= form.text_field :username, required: true %>
-  </p>
 
-  <p>
-    <%= form.submit "Get Info" %>
-  </p>
-<% end %>
+<div class="container">
+  <img src="<%= asset_path('logo.png') %>">
+  <%= form_with scope: :user, class: 'username_form', local: true do |form| %>
+    <p>
+      <%= form.label :username, class: 'username_label' %><br>
+      <%= form.text_field :username, required: true, class: 'username_input' %>
+    </p>
+
+    <p class="username_submit_p">
+      <%= form.submit "Get Info", class: 'username_submit' %>
+    </p>
+  <% end %>
+</div>
