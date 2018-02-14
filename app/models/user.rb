@@ -1,3 +1,3 @@
 class User < ApplicationRecord
-    validates :login, :avatar_url, :followers, :public_repos, :repos_url, presence: true
+    validates :login, presence: true
 end
