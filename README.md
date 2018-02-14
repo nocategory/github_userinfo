@@ -1,24 +1,20 @@
-# README
+# GitHub User Info
+[![Build Status](https://travis-ci.com/uppe-r/github_userinfo.svg?token=iy8cDzpCgypSkJPdoxMC&branch=master)](https://travis-ci.com/uppe-r/github_userinfo)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A small and simple app powered by **Ruby on Rails** that fetches data from the GitHub API v3.
 
-Things you may want to cover:
+## System dependencies
 
-* Ruby version
+ - Docker & [Compose](https://docs.docker.com/compose/install/)
 
-* System dependencies
+## Quick start
 
-* Configuration
+ 1. Clone the repository
+ 2. Run `docker-compose build`
+ 3. Run `docker-compose run web rake db:create && docker-compose run web rails db:migrate` and then `docker-compose up`
+ 4. Open [http://localhost:8080](http://localhost:8080) and the app should be running!
 
-* Database creation
+## Final notes
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ - In case you have problems with [GitHub's API rate limiting](https://developer.github.com/v3/rate_limit/), set an environment variable called "**GH**" with a valid **OAuth2 token**
+ - To run tests run `rspec` on the root folder
