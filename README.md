@@ -11,8 +11,9 @@ A small and simple app powered by **Ruby on Rails** that fetches data from the G
 
  1. Clone the repository
  2. Run `docker-compose build`
- 3. Run `docker-compose run web rake db:create && docker-compose run web rails db:migrate` and then `docker-compose up`
- 4. Open [http://localhost:8080](http://localhost:8080) and the app should be running!
+ 3. Run `docker-compose up`
+ 4. In another terminal window, run `docker-compose run web rake db:create && docker-compose run web rails db:migrate`
+ 5. Open [http://localhost:8080](http://localhost:8080) and the app should be running!
 
 ## Final notes
 
