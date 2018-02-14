@@ -7,12 +7,16 @@ class QueryapiJob
     header = ENV["GH"] ? {:Authorization => 'token ' << ENV["GH"]} : {}
 
     ## Send the request and parse the response
-    ## If there is a bad response from the API, return the 404 page
+    ## If there is a bad response from the API, return the 404 page and delete the user record
     begin
-        response = RestClient.get url, header
-    rescue RestClient::ExceptionWithResponse => err
-        render file: "#{Rails.root}/public/404", status: 404
-        # gotta do something else here, like deleting the row from db
+      response = RestClient.get url, header
+      rescue RestClient::ExceptionWithResponse => err
+        ApplicationController.render(
+          file: "#{Rails.root}/public/404", status: 404
+        )
+        ## Deletes user record from database (only login attribute populated) 
+        ## if the user does not exist in GitHub
+        user.destroy!
         return err.response
     end
     data = JSON.parse(response.body, symbolize_keys: true)

@@ -17,8 +17,11 @@ class UsersController < ApplicationController
 
     def show
         # params[:id] is actually the login nickname
-        @user = User.find_by_login(params[:id]) or render file: "#{Rails.root}/public/404", status: 404
-        if !@user.public_repos
+        @user = User.find_by_login(params[:id])
+        if !@user 
+            render file: "#{Rails.root}/public/404", status: 404
+            return
+        elsif !@user.public_repos
             render file: "#{Rails.root}/public/not_available", status: 200
         end
     end
