@@ -24,23 +24,23 @@ RSpec.describe User, :type => :model do
     expect(u).to be_valid
   end
 
-  it "is not valid without a avatar_url" do
+  it "is valid without an avatar_url" do
     u.avatar_url = nil
-    expect(u).to_not be_valid
+    expect(u).to be_valid
   end
 
-  it "is not valid without a followers" do
+  it "is valid without a followers" do
     u.followers = nil
-    expect(u).to_not be_valid
+    expect(u).to be_valid
   end
 
-  it "is not valid without a public_repos" do
+  it "is valid without a public_repos" do
     u.public_repos = nil
-    expect(u).to_not be_valid
+    expect(u).to be_valid
   end
 
-  it "is not valid without a repos_url" do
+  it "is valid without a repos_url" do
     u.repos_url = nil
-    expect(u).to_not be_valid
+    expect(u).to be_valid
   end
 end
