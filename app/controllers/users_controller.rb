@@ -11,6 +11,8 @@ class UsersController < ApplicationController
         @user = User.new(:login => username)
         @user.save
         
+        ## Run Sucker Punch job responsible for fetching data
+        ## from the API and updating the record
         QueryapiJob.new.perform(@user)
         redirect_to '/users/' << @user.login
     end
