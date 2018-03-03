@@ -15,6 +15,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'webmock/rspec'
 require 'uri'
+require 'faker'
 WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec.configure do |config|
@@ -25,11 +26,11 @@ RSpec.configure do |config|
           status: 200,
           body: {
             "login": request.uri.path.slice("/users/"),
-            "avatar_url": "https://avatars2.githubusercontent.com/u/12294525?v=4",
+            "avatar_url": "https://avatars2.githubusercontent.com/u/#{Faker::Number.number(8)}?v=4",
             "repos_url": "https://api.github.com#{request.uri.path}/repos",
-            "name": nil,
-            "public_repos": 10,
-            "followers": 2,
+            "name": Faker::Name.name,
+            "public_repos": Faker::Number.number(3),
+            "followers": Faker::Number.number(2),
           }.to_json
         }
       }
