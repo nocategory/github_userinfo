@@ -14,6 +14,7 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'webmock/rspec'
+require 'uri'
 WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec.configure do |config|
