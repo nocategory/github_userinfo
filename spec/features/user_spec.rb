@@ -34,16 +34,8 @@ describe "the get user info process", :type => :feature do
         expect(page.status_code).to eq(404)
     end
 
-    it "returns 404 when a non-existant GitHub user is submitted" do
-        visit '/'
-        within("form") do
-            fill_in 'user[username]', with: 'randomusernamethatibetdoesnotexist31313221'
-        end
-        click_button 'Get Info'
-        expect(page.status_code).to eq(404)
-    end
-
     another_random_username = Faker::Internet.user_name
+
     # Not available yet
     # to simulate a page visit on a record that is still being populated by a job
     it "returns \"Not available yet\" when the user record is not populated" do
