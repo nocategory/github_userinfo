@@ -1,7 +1,8 @@
 require 'faker'
 
 describe "the get user info process", :type => :feature do
-    random_username = Faker::Internet.user_name
+    ## Only the '-' character is allowed, as per Github rules
+    random_username = Faker::Internet.user_name(nil, %w(-))
 
     ## Gives info  
     it "gives me info about a new user" do
@@ -34,7 +35,7 @@ describe "the get user info process", :type => :feature do
         expect(page.status_code).to eq(404)
     end
 
-    another_random_username = Faker::Internet.user_name
+    another_random_username = Faker::Internet.user_name(nil, %w(-))
 
     # Not available yet
     # to simulate a page visit on a record that is still being populated by a job
