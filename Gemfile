@@ -44,6 +44,7 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'webmock', '~> 3.3'
+  gem 'faker', '~> 1.8', '>= 1.8.7'
 end
 
 group :development do
