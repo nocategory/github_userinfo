@@ -13,7 +13,27 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'webmock/rspec'
+WebMock.disable_net_connect!(allow_localhost: true)
+
 RSpec.configure do |config|
+  config.before(:each) do
+    stub_request(:get, /api.github.com/).
+      to_return {
+        |request| { 
+          status: 200,
+          body: {
+            "login": request.uri.path.slice("/users/"),
+            "avatar_url": "https://avatars2.githubusercontent.com/u/12294525?v=4",
+            "repos_url": "https://api.github.com#{request.uri.path}/repos",
+            "name": nil,
+            "public_repos": 10,
+            "followers": 2,
+          }.to_json
+        }
+      }
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
