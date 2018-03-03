@@ -18,4 +18,4 @@ A small and simple app powered by **Ruby on Rails** that fetches data from the G
 ## Final notes
 
  - In case you have problems with [GitHub's API rate limiting](https://developer.github.com/v3/rate_limit/), set an environment variable called "**GH**" with a valid **OAuth2 token**
- - To run tests run `rspec` on the root folder, you might need to run `rails db:migrate RAILS_ENV=test` before
+ - To run tests, run `rspec` on the root folder (you might need to run `rails db:migrate RAILS_ENV=test` before)
