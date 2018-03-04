@@ -5,19 +5,19 @@ require 'faker'
 describe "the get user info process", :type => :feature do
     before :all do
         stub_request(:get, /api.github.com/).
-            to_return {
-                |request| { 
-                    status: 200,
-                    body: {
+        to_return {
+            |request| {
+                status: 200,
+                body: {
                     "login": request.uri.path.slice("/users/"),
                     "avatar_url": "https://avatars2.githubusercontent.com/u/#{Faker::Number.number(8)}?v=4",
                     "repos_url": "https://api.github.com#{request.uri.path}/repos",
                     "name": Faker::Name.name,
                     "public_repos": Faker::Number.number(3),
                     "followers": Faker::Number.number(2),
-                    }.to_json
-                }
+                }.to_json
             }
+        }
     end
     ## Only the '-' character is allowed, as per Github rules
     random_username = Faker::Internet.user_name(nil, %w(-))
