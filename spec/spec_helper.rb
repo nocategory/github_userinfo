@@ -14,28 +14,8 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'webmock/rspec'
-require 'uri'
-require 'faker'
 WebMock.disable_net_connect!(allow_localhost: true)
-
 RSpec.configure do |config|
-  config.before(:each) do
-    stub_request(:get, /api.github.com/).
-      to_return {
-        |request| { 
-          status: 200,
-          body: {
-            "login": request.uri.path.slice("/users/"),
-            "avatar_url": "https://avatars2.githubusercontent.com/u/#{Faker::Number.number(8)}?v=4",
-            "repos_url": "https://api.github.com#{request.uri.path}/repos",
-            "name": Faker::Name.name,
-            "public_repos": Faker::Number.number(3),
-            "followers": Faker::Number.number(2),
-          }.to_json
-        }
-      }
-  end
-
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
