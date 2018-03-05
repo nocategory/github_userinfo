@@ -3,22 +3,28 @@ require 'uri'
 require 'faker'
 
 describe "the get user info process", :type => :feature do
+    ## Initializing fake_data so it can be used outside the code block
+    fake_data = nil
+
     before :all do
         stub_request(:get, /api.github.com/).
         to_return {
-            |request| {
+            |request|
+            fake_data = { :login => request.uri.path.slice("/users/"), :avatar_url => "https://avatars2.githubusercontent.com/u/#{Faker::Number.number(8)}?v=4", :repos_url => "https://api.github.com#{request.uri.path}/repos", :name => Faker::Name.name, :public_repos => Faker::Number.number(3), :followers => Faker::Number.number(2) }
+            {
                 status: 200,
                 body: {
-                    "login": request.uri.path.slice("/users/"),
-                    "avatar_url": "https://avatars2.githubusercontent.com/u/#{Faker::Number.number(8)}?v=4",
-                    "repos_url": "https://api.github.com#{request.uri.path}/repos",
-                    "name": Faker::Name.name,
-                    "public_repos": Faker::Number.number(3),
-                    "followers": Faker::Number.number(2),
+                    "login": fake_data[:login],
+                    "avatar_url": fake_data[:avatar_url],
+                    "repos_url": fake_data[:repos_url],
+                    "name": fake_data[:name],
+                    "public_repos": fake_data[:public_repos],
+                    "followers": fake_data[:followers]
                 }.to_json
             }
         }
     end
+
     ## Only the '-' character is allowed, as per Github rules
     random_username = Faker::Internet.user_name(nil, %w(-))
 
@@ -29,7 +35,12 @@ describe "the get user info process", :type => :feature do
             fill_in "user[username]", with: random_username
         end
         click_button 'Get Info'
-        expect(page).to have_content "https://api.github.com/users/#{random_username}/repos"
+        expect(page.find('#avatar')['src']).to have_content fake_data[:avatar_url]
+        expect(page).to have_content fake_data[:login]
+        expect(page).to have_content fake_data[:name]
+        expect(page).to have_content fake_data[:followers]
+        expect(page).to have_content fake_data[:public_repos]
+        expect(page).to have_content fake_data[:repos_url]
     end
 
     it "gives me info when the form is submitted for an already existing user record" do
@@ -39,12 +50,23 @@ describe "the get user info process", :type => :feature do
         end
         click_button 'Get Info'
         expect(page).to have_current_path("/users/#{random_username}")
-        expect(page).to have_content "https://api.github.com/users/#{random_username}/repos"
+        expect(page.find('#avatar')['src']).to have_content fake_data[:avatar_url]
+        expect(page).to have_content fake_data[:login]
+        expect(page).to have_content fake_data[:name]
+        expect(page).to have_content fake_data[:followers]
+        expect(page).to have_content fake_data[:public_repos]
+        expect(page).to have_content fake_data[:repos_url]
     end
 
     it "gives me info when an url for an already existing user record is visited" do
         visit "/users/#{random_username}"
         expect(page).to have_content random_username
+        expect(page.find('#avatar')['src']).to have_content fake_data[:avatar_url]
+        expect(page).to have_content fake_data[:login]
+        expect(page).to have_content fake_data[:name]
+        expect(page).to have_content fake_data[:followers]
+        expect(page).to have_content fake_data[:public_repos]
+        expect(page).to have_content fake_data[:repos_url]
     end
 
     ## Returns 404
