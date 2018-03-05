@@ -35,6 +35,7 @@ describe "the get user info process", :type => :feature do
             fill_in "user[username]", with: random_username
         end
         click_button 'Get Info'
+        expect(WebMock).to have_requested(:get, "https://api.github.com/users/#{random_username}")
         expect(page.find('#avatar')['src']).to have_content fake_data[:avatar_url]
         expect(page).to have_content fake_data[:login]
         expect(page).to have_content fake_data[:name]
