@@ -1,5 +1,4 @@
 # GitHub User Info
-[![Build Status](https://travis-ci.com/uppe-r/github_userinfo.svg?token=iy8cDzpCgypSkJPdoxMC&branch=master)](https://travis-ci.com/uppe-r/github_userinfo)
 
 A small and simple app powered by **Ruby on Rails** that fetches data from the GitHub API v3.
 
